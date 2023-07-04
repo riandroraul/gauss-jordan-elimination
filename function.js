@@ -1,4 +1,3 @@
-const { stdout } = require("process");
 // const fs = require('fs');
 // readline
 const readline = require("readline");
@@ -16,23 +15,33 @@ const pertanyaan = (pertanyaan) => {
   });
 };
 
-
 const createMatrix = async () => {
-  let arr = [];
-  let data = [];
+  let row = [];
+  let column = [];
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 4; j++) {
-      let a = await pertanyaan(`data[${i}][${j}] = `);
-      data.push(Number(a));
+      let a = await pertanyaan(`baris[${i + 1}]kolom[${j + 1}] = `);
+      column.push(Number(a));
+      // [2,3,4,5],
+      // [2,3,4,5],
+      // [2,3,4,5],
     }
-    arr.push(data);
-    data = [];
+    row.push(column);
+    // [
+    //   [2,3,4,5],
+    //   [2,3,4,5],
+    //   [2,3,4,5],
+    // ]
+    column = [];
   }
+  rl.close();
   // const namaBuku = await pertanyaan("masukkan nama buku : ");
   // const penerbit = await pertanyaan("masukkan nama penerbit : ");
   // const pengarang = await pertanyaan("masukkan nama pengarang : ");
 
-  return arr
+  return row;
 };
 
-createMatrix();
+// createMatrix().then((res) => console.log(res));
+
+module.exports = createMatrix;
